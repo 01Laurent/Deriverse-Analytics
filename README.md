@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+📊 Deriverse Analytics Dashboard
+A high-fidelity, comprehensive trading analytics interface built for the Deriverse Ecosystem.
 
-## Getting Started
+💡 Overview
+This dashboard addresses the critical need for unified performance tracking across Spot, Perpetuals, and Options. While most exchanges fragment this data, our solution aggregates it into a single "Trader Health" view, offering unique insights like Session Heatmaps and Bias Analysis.
 
-First, run the development server:
+Note for Judges:
+This submission is a Frontend-First Prototype. To ensure maximum stability and zero latency during the judging period, the application runs on a deterministic static data service (simulating API responses). The architecture is designed to be fully non-custodial and pluggable into the Deriverse Indexer SDK.
 
-```bash
+🏆 How I Met the Criteria
+1. Comprehensiveness & Innovation
+I went beyond simple PnL charts. Our solution includes:
+
+Unified Portfolio View: Aggregates Spot, Perps, and Options exposure in one donut chart.
+
+Session Performance Heatmap: A GitHub-style contribution graph for trading activity (Day/Hour), identifying a trader's "golden hours."
+
+Long/Short Bias Meter: visualizes psychological trading patterns.
+
+Ecosystem Rewards Tracker: Dedicated tracking for DRVS fee rebates.
+
+2. Clarity & Readability
+Dark Mode Native: Designed for low eye strain during long trading sessions.
+
+Color Logic: Standardized Green/Red signals for instant decision-making.
+
+Responsive: Fully optimized for desktop and tablet analysis.
+
+3. Security & Data Privacy
+Non-Custodial Architecture: The dashboard is designed as a client-side interface. It reads on-chain data but never requires private keys.
+
+No Central Database: User trade history is fetched directly from the chain (simulated for this demo), meaning no user data is stored on our servers, eliminating central breach risks.
+
+🛠 Tech Stack
+Framework: Next.js 14 (App Router)
+
+Styling: Tailwind CSS (Custom "Deriverse" Dark Theme)
+
+Visualization: Recharts (Responsive, accelerated SVGs)
+
+Icons: Lucide React
+
+🚀 Getting Started
+To run the dashboard locally:
+
+Bash
+# 1. Clone the repository
+git clone https://github.com/01Laurent/Deriverse-Analytics.git
+
+# 2. Install dependencies
+npm install
+
+# 3. Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open http://localhost:3000 to view the analytics suite.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔮 Future Roadmap (Post-Hackathon)
+Live Indexer Integration: Replace the static data service with real-time fetch calls to the Deriverse GraphQL endpoint.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Wallet Sign-In: Integrate Solana Wallet Adapter (Phantom/Backpack) to auto-fetch user addresses.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+PDF Export: Generate tax-friendly PnL reports directly from the Journal view.
