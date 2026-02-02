@@ -8,7 +8,9 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-<img src="./public/dashboard-preview.png" alt="Dashboard Preview" width="100%" style="border-radius: 10px; margin-top: 20px; border: 1px solid #333;" />
+<img src="./public/dashboard.png" alt="Dashboard Preview1" width="100%" style="border-radius: 10px; margin-top: 20px; border: 1px solid #333;" />
+<img src="./public/dashboard2.png" alt="Dashboard Preview2" width="100%" style="border-radius: 10px; margin-top: 20px; border: 1px solid #333;" />
+
 
 </div>
 
@@ -24,10 +26,10 @@
 
 This dashboard addresses the critical need for **unified performance tracking** across Spot, Perpetuals, and Options. While most exchanges fragment this data, our solution aggregates it into a single **"Trader Health"** view, offering unique insights like Session Heatmaps and Bias Analysis.
 
-## 🏆 How We Met the Criteria
+## 🏆 How I Met the Criteria
 
 ### 1. Comprehensiveness & Innovation
-We went beyond simple PnL charts to offer deep insights:
+I went beyond simple PnL charts to offer deep insights:
 
 | Feature | Description |
 | :--- | :--- |
@@ -72,6 +74,7 @@ npm run dev
 
 Open http://localhost:3000 to view the analytics suite.
 
+---
 🔮 Future Roadmap
 [ ] Live Indexer Integration: Replace static data with Deriverse GraphQL calls.
 
@@ -79,11 +82,8 @@ Open http://localhost:3000 to view the analytics suite.
 
 [ ] PDF Export: Generate tax-friendly PnL reports directly from the Journal.
 
+---
+
 <div align="center">
 <sub>Built with ❤️ for the Deriverse </sub>
 </div>
-
-
-### ⚡ Dashboard screenshot
-`<img src="./public/dashboard.png" ... />`
-`<img src="./public/dashboard2.png" ... />`
