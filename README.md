@@ -74,7 +74,6 @@ npm run dev
 
 Open http://localhost:3000 to view the analytics suite.
 
----
 🔮 Future Roadmap
 [ ] Live Indexer Integration: Replace static data with Deriverse GraphQL calls.
 
@@ -82,8 +81,6 @@ Open http://localhost:3000 to view the analytics suite.
 
 [ ] PDF Export: Generate tax-friendly PnL reports directly from the Journal.
 
----
-
 <div align="center">
-<sub>Built with ❤️ for the Deriverse </sub>
+<sub>Built with ❤️ for the Deriverse Hackathon</sub>
 </div>
