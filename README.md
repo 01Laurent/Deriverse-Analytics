@@ -71,6 +71,7 @@ npm install
 
 # 3. Run the development server
 npm run dev
+```
 Open http://localhost:3000 to view the analytics suite.
 
 🔮 Future Roadmap
@@ -81,5 +82,5 @@ Open http://localhost:3000 to view the analytics suite.
 [ ] PDF Export: Generate tax-friendly PnL reports directly from the Journal.
 
 <div align="center">
-<sub>Built with ❤️ for the Deriverse Hackathon</sub>
+<sub>Built with ❤️ for the Deriverse</sub>
 </div>
