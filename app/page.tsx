@@ -1,7 +1,8 @@
 "use client";
 
 import { Activity, Filter, Download, Wallet, Coins, ArrowUpRight, ArrowDownRight, BarChart3 } from "lucide-react";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Pie, PieChart as RePieChart, Cell } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Pie, PieChart as RePieChart, Cell, BarChart, Bar } from 'recharts';
+import Image from "next/image";
 
 // --- 1. DATA: Deriverse Ecosystem (Spot, Perps, Options) ---
 const pnlData = [
@@ -20,6 +21,17 @@ const ecosystemData = [
   { name: 'Spot', value: 30, color: '#3B82F6' },
   { name: 'Options', value: 15, color: '#F59E0B' },
 ];
+
+// Generate static activity data for 24 hours
+const sessionData = Array.from({ length: 24 }, (_, i) => {
+  // Simulate "Golden Hours" (8am-11am & 1pm-4pm are busy)
+  const isBusy = (i >= 8 && i <= 11) || (i >= 13 && i <= 16);
+  const base = isBusy ? 70 : 20;
+  return {
+    hour: `${i}:00`,
+    activity: Math.floor(Math.random() * (100 - base) + base), // Random activity 0-100
+  };
+});
 
 const trades = [
   { symbol: "SOL-PERP", pnl: "+$1245.80", time: "2m ago", isWin: true, type: "Perp ⚡" },
@@ -45,7 +57,17 @@ export default function Dashboard() {
       <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
-            Deriverse Analytics
+            {/* Custom Logo Image */}
+            <div className="relative w-10 h-10">
+              <Image 
+                src="/logo.png" 
+                alt="Deriverse Logo" 
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            Deriverse
           </h1>
           <div className="flex items-center gap-2 mt-1">
              <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
@@ -54,17 +76,30 @@ export default function Dashboard() {
         </div>
         
         <div className="flex flex-wrap gap-3">
-           {/* DRVS Rewards */}
-           <div className="flex items-center gap-2 bg-surface/50 border border-border/50 px-3 py-2 rounded-lg text-sm text-primary">
-             <Coins size={16} />
-             <span className="font-bold">1,250 DRVS</span>
-             <span className="text-xs text-muted">($412)</span>
-           </div>
+          {/* DRVS Rewards */}
+          <div className="group relative">
+            <div className="flex items-center gap-2 bg-surface/50 border border-border/50 px-3 py-2 rounded-lg text-sm text-primary transition-all duration-300 hover:bg-primary/10 hover:border-primary hover:scale-105 cursor-pointer">
+              <Coins size={16} />
+              <span className="font-bold">1,250 DRVS</span>
+              <span className="text-xs text-muted">($412)</span>
+            </div>
+            {/* Tooltip */}
+            <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-max bg-gray-900 border border-white/10 text-white text-[10px] font-medium px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
+              Pending Ecosystem Rewards
+            </div>
+          </div>
 
-           <button className="flex items-center gap-2 bg-surface border border-border px-4 py-2 rounded-lg text-sm font-medium hover:border-primary transition-colors text-white group">
-             <Wallet size={16} className="group-hover:text-primary transition-colors" />
-             7Xw...9z2
-           </button>
+          {/* Wallet Button*/}
+          <div className="group relative">
+            <button className="flex items-center gap-2 bg-surface border border-border px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:border-primary hover:bg-primary/10 hover:shadow-[0_0_10px_rgba(16,185,129,0.2)] text-white">
+              <Wallet size={16} className="group-hover:text-primary transition-colors duration-300" />
+              7Xw...9z2
+            </button>
+            {/* Tooltip */}
+            <div className="absolute top-full mt-2 right-0 w-max bg-gray-900 border border-white/10 text-white text-[10px] font-medium px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
+              Connect Wallet
+            </div>
+          </div>
         </div>
       </header>
 
@@ -172,40 +207,43 @@ export default function Dashboard() {
       {/* HEATMAP & RECENT TRADES */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
          {/* Time of Day Heatmap (FIXED HYDRATION ERROR) */}
-         <div className="lg:col-span-2 bg-surface rounded-xl border border-border p-6 h-[320px]">
-            <div className="flex justify-between items-center mb-6">
+         <div className="lg:col-span-2 bg-surface rounded-xl border border-border p-6 h-[320px] flex flex-col">
+            <div className="flex justify-between items-center mb-4">
               <h3 className="font-semibold text-white">Session Performance</h3>
-              <div className="flex gap-2 text-xs">
-                 <span className="flex items-center gap-1"><div className="w-2 h-2 bg-primary/20 rounded"></div> Low</span>
-                 <span className="flex items-center gap-1"><div className="w-2 h-2 bg-primary rounded"></div> High</span>
+              <div className="flex items-center gap-2 text-xs font-medium">
+                 <span className="text-muted">Low</span>
+                 {/* Gradient Legend Line */}
+                 <div className="w-16 h-1.5 rounded-full bg-gradient-to-r from-emerald-900/20 to-emerald-500"></div>
+                 <span className="text-primary">High</span>
               </div>
             </div>
-            <div className="grid grid-rows-7 gap-1 h-[200px]">
-               {[...Array(7)].map((_, day) => (
-                 <div key={day} className="grid grid-cols-24 gap-1">
-                    {[...Array(24)].map((_, hour) => {
-                       // Deterministic calculation instead of Math.random()
-                       // This ensures Server HTML matches Client HTML
-                       const seed = (day + 1) * (hour + 1) * 7; 
-                       const opacity = Math.abs(Math.sin(seed)); 
-                       
-                       const isActive = opacity > 0.35;
-                       return (
-                         <div 
-                           key={hour} 
-                           className={`rounded-sm ${isActive ? 'bg-primary' : 'bg-border'}`} 
-                           style={{ opacity: isActive ? opacity : 0.1 }} 
-                           title={`Day ${day+1} Hour ${hour}:00`}
-                         ></div>
-                       );
-                    })}
-                 </div>
-               ))}
-            </div>
-            <div className="flex justify-between text-xs text-muted mt-2 px-1">
-               <span>00:00 (UTC)</span>
-               <span>12:00 (UTC)</span>
-               <span>23:59 (UTC)</span>
+
+            {/* Recharts Activity Bar Graph */}
+            <div className="flex-1 w-full min-h-0">
+               <ResponsiveContainer width="100%" height="100%">
+                 <BarChart data={sessionData}>
+                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#2A3441" />
+                   <XAxis 
+                      dataKey="hour" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fill: '#6b7280', fontSize: 10 }}
+                      interval={3} 
+                   />
+                   <Tooltip 
+                      cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                      contentStyle={{ backgroundColor: '#151C24', borderColor: '#2A3441', color: '#fff' }}
+                   />
+                   <Bar dataKey="activity" radius={[4, 4, 0, 0]}>
+                      {sessionData.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={`rgba(16, 185, 129, ${0.3 + (entry.activity / 150)})`} // Dynamic Opacity
+                        />
+                      ))}
+                   </Bar>
+                 </BarChart>
+               </ResponsiveContainer>
             </div>
          </div>
 
